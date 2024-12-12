@@ -1,5 +1,5 @@
 import { defineConfig } from "@pandacss/dev"
-import { blue } from "./blue"
+
 export default defineConfig({
   // Whether to use css reset
   preflight: true,
@@ -12,30 +12,6 @@ export default defineConfig({
   },
   // Files to exclude
   exclude: [],
-  globalCss: {
-    html: {
-      colorPalette: blue.name,
-    },
-    body: {
-      _dark: {
-        colorScheme: "dark",
-      },
-    },
-  },
-  // Useful for theme customization
-  theme: {
-    extend: {
-      tokens: {
-        colors: { [blue.name]: blue.tokens },
-      },
-      semanticTokens: {
-        colors: {
-          primary: { ...blue.tokens },
-          secondary: {},
-        },
-      },
-    },
-  },
 
   // The output directory for your css system
   outdir: "styled-system",
