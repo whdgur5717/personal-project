@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import "./globals.css"
 import localFont from "next/font/local"
-import { css } from "@styled-system/css"
+import { container } from "@styled-system/patterns"
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,7 +25,13 @@ export default function RootLayout({
       lang="ko"
       className={`${pretendard.variable}`}>
       <body
-        className={css({ minH: "100vh", bg: "background", fontFamily: "var(--font-pretendard)" })}>
+        className={container({
+          maxW: "6xl",
+          py: 8,
+          minH: "100vh",
+          bg: "background",
+          fontFamily: "var(--font-pretendard)",
+        })}>
         {children}
       </body>
     </html>

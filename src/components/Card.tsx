@@ -17,6 +17,8 @@ function Card({ children }: { children: ReactNode; className?: string }) {
         flexDir: "column",
         justifyContent: "center",
         alignItems: "center",
+        p: 5,
+        gap: 5,
         "&:hover": { transform: "translateY(-4px)", boxShadow: "lg" },
       })}>
       {children}
@@ -43,7 +45,11 @@ function CardImage({ src, alt }: ComponentProps<typeof Image>) {
 }
 
 function CardContent({ children }: { children?: ReactNode }) {
-  return <div className={css({ p: 4 })}>{children}</div>
+  return (
+    <div className={css({ display: "flex", alignItems: "center", flexDir: "column" })}>
+      {children}
+    </div>
+  )
 }
 
 function CardTitle({ children }: { children?: ReactNode }) {
@@ -55,7 +61,12 @@ function CardTitle({ children }: { children?: ReactNode }) {
 }
 
 function CardSubtitle({ children }: { children?: ReactNode }) {
-  return <p className={css({ fontSize: "sm", color: "foreground" })}>{children}</p>
+  return (
+    <p
+      className={css({ fontSize: "sm", color: "foreground", lineClamp: "2", textAlign: "center" })}>
+      {children}
+    </p>
+  )
 }
 
 Card.Image = CardImage
