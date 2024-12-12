@@ -13,6 +13,10 @@ function Card({ children }: { children: ReactNode; className?: string }) {
         boxShadow: "md",
         transition: "all 0.3s",
         bgColor: "background",
+        display: "flex",
+        flexDir: "column",
+        justifyContent: "center",
+        alignItems: "center",
         "&:hover": { transform: "translateY(-4px)", boxShadow: "lg" },
       })}>
       {children}
@@ -20,15 +24,21 @@ function Card({ children }: { children: ReactNode; className?: string }) {
   )
 }
 
-function CardImage({ src, alt, width = 100, height = 100 }: ComponentProps<typeof Image>) {
+function CardImage({ src, alt }: ComponentProps<typeof Image>) {
   return (
-    <Image
-      src={src}
-      alt={alt}
-      width={width}
-      height={height}
-      className={css({ w: "full", h: "auto", objectFit: "cover" })}
-    />
+    <div style={{ position: "relative", width: "100%", height: "200px" }}>
+      <Image
+        src={src}
+        alt={alt}
+        sizes="200px"
+        fill
+        className={css({
+          width: "100%",
+          height: "auto",
+          objectFit: "contain",
+        })}
+      />
+    </div>
   )
 }
 
@@ -37,11 +47,15 @@ function CardContent({ children }: { children?: ReactNode }) {
 }
 
 function CardTitle({ children }: { children?: ReactNode }) {
-  return <h3 className={css({ fontSize: "lg", fontWeight: "semibold", mb: 1 })}>{children}</h3>
+  return (
+    <h3 className={css({ fontSize: "lg", fontWeight: "semibold", mb: 1, color: "foreground" })}>
+      {children}
+    </h3>
+  )
 }
 
 function CardSubtitle({ children }: { children?: ReactNode }) {
-  return <p className={css({ fontSize: "sm", color: "gray.600" })}>{children}</p>
+  return <p className={css({ fontSize: "sm", color: "foreground" })}>{children}</p>
 }
 
 Card.Image = CardImage

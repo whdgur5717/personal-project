@@ -11,7 +11,7 @@ export default async function Home() {
 
   return (
     <div className={css({ minH: "100vh", bg: "background" })}>
-      <main className={container({ maxW: "7xl", py: 8 })}>
+      <main className={container({ maxW: "6xl", py: 8 })}>
         <div className={flex({ direction: "column", gap: 8 })}>
           <div className={flex({ columns: ["column", "row"], gap: 4 })}>
             <Input placeholder="이름으로 검색" />
@@ -34,8 +34,6 @@ export default async function Home() {
                 <Card.Image
                   src={politician.signed_url}
                   alt={politician.name}
-                  width={300}
-                  height={300}
                 />
                 <Card.Content>
                   <Card.Title>{politician.name}</Card.Title>
