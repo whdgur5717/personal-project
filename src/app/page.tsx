@@ -22,8 +22,8 @@ export default async function Home() {
 
         <div
           className={grid({
-            columns: [1, 2, 3, 4, 5],
-            gap: [4, 6],
+            columns: [3, 4, 5],
+            gap: [6, 8],
           })}>
           {politicians?.map(politician => (
             <Card key={politician.id}>
