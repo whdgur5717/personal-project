@@ -6,6 +6,7 @@ import type { Database } from "@/utils/database.types"
 import { css } from "@styled-system/css"
 import { grid, stack } from "@styled-system/patterns"
 import Image from "next/image"
+import { Select } from "../components/Select"
 
 const selected_list = [
   "서울특별시",
@@ -40,23 +41,24 @@ export default function FilterList({
 
   return (
     <div>
-      <h1
+      <h2
         className={css({
-          fontSize: "2xl",
+          fontSize: "3xl",
           fontWeight: "bold",
           marginBottom: "1rem",
           textAlign: "center",
         })}>
         국민의힘 탄핵안 불참자 리스트
-      </h1>
+      </h2>
 
-      <p className={css({ textAlign: "center", marginBottom: "2rem" })}>
-        총 인원: {initialData.length}명 / 현재 표시: {filteredList.length}명
-      </p>
-
-      <select
+      {/* <select
         value={selectedData || ""}
-        onChange={e => setSelectedData(e.target.value as SelectOption)}>
+        onChange={e => setSelectedData(e.target.value as SelectOption)}
+        className={css({
+          width: "full",
+          height: "30px",
+          border: "1px solid black",
+        })}>
         <option
           key="default"
           value=""
@@ -70,7 +72,13 @@ export default function FilterList({
             {data}
           </option>
         ))}
-      </select>
+      </select> */}
+
+      <Select<SelectOption>
+        options={[...selected_list]}
+        onValueChange={e => setSelectedData(e)}
+        label="지역 선택"
+        placeholder="지역 선택"></Select>
 
       <div className={grid({ columns: [3, 4, 5], gap: [4, 6] })}>
         {filteredList.map((politician, index) => (
