@@ -9,9 +9,5 @@ export default async function SearchPage() {
     throw new Error("Failed to fetch politicians")
   }
 
-  return (
-    <div>
-      <FilterList initialData={politicians} />
-    </div>
-  )
+  return <FilterList initialData={politicians} />
 }
