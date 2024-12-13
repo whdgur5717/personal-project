@@ -13,6 +13,7 @@ export type Database = {
         Row: {
           comment: string | null
           district: string
+          filter: string | null
           id: string
           isAgreed: boolean
           name: string
@@ -21,6 +22,7 @@ export type Database = {
         Insert: {
           comment?: string | null
           district: string
+          filter?: string | null
           id?: string
           isAgreed?: boolean
           name?: string
@@ -29,6 +31,37 @@ export type Database = {
         Update: {
           comment?: string | null
           district?: string
+          filter?: string | null
+          id?: string
+          isAgreed?: boolean
+          name?: string
+          signed_url?: string
+        }
+        Relationships: []
+      }
+      mp_duplicate: {
+        Row: {
+          comment: string | null
+          district: string
+          filter: string | null
+          id: string
+          isAgreed: boolean
+          name: string
+          signed_url: string
+        }
+        Insert: {
+          comment?: string | null
+          district: string
+          filter?: string | null
+          id?: string
+          isAgreed?: boolean
+          name?: string
+          signed_url: string
+        }
+        Update: {
+          comment?: string | null
+          district?: string
+          filter?: string | null
           id?: string
           isAgreed?: boolean
           name?: string
