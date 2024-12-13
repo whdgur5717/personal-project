@@ -1,5 +1,6 @@
 import { defineConfig } from "@pandacss/dev"
 import { preset } from "@jongh/panda-preset"
+import { select } from "@/components/Select/recipe"
 
 export default defineConfig({
   // Whether to use css reset
@@ -7,7 +8,7 @@ export default defineConfig({
   presets: ["@pandacss/preset-panda", preset()],
   // Where to look for your css declarations
   include: ["./src/components/*.{js,jsx,ts,tsx}", "./src/app/**/*.{js,jsx,ts,tsx}"],
-
+  jsxFramework: "react",
   // Files to exclude
   exclude: [],
   theme: {
@@ -16,6 +17,9 @@ export default defineConfig({
         fonts: {
           "pretendard-gov": { value: "var(--font-pretendard)" },
         },
+      },
+      recipes: {
+        select,
       },
     },
   },
