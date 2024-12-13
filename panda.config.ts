@@ -27,11 +27,7 @@ export default defineConfig({
     "--font-pretendard":
       "Pretendard GOV Variable, Pretendard GOV, -apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica Neue, Segoe UI, Apple SD Gothic Neo, Noto Sans KR, Malgun Gothic, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, sans-serif",
   },
-  globalCss: {
-    html: {
-      fontSize: "62.5%",
-    },
-  },
+
   // The output directory for your css system
   outdir: "styled-system",
 })
