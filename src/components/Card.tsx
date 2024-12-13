@@ -13,10 +13,9 @@ function Card({ children }: { children: ReactNode; className?: string }) {
         boxShadow: "md",
         transition: "all 0.3s",
         bgColor: "background",
-        display: "flex",
-        flexDir: "column",
-        justifyContent: "center",
-        alignItems: "center",
+        width: "100%",
+        aspectRatio: "1/1",
+        position: "relative",
         p: 5,
         gap: 5,
         "&:hover": { transform: "translateY(-4px)", boxShadow: "lg" },
@@ -28,19 +27,12 @@ function Card({ children }: { children: ReactNode; className?: string }) {
 
 function CardImage({ src, alt }: ComponentProps<typeof Image>) {
   return (
-    <div style={{ position: "relative", width: "100%", height: "200px" }}>
-      <Image
-        src={src}
-        alt={alt}
-        sizes="200px"
-        fill
-        className={css({
-          width: "100%",
-          height: "auto",
-          objectFit: "contain",
-        })}
-      />
-    </div>
+    <Image
+      src={src}
+      alt={alt}
+      sizes="100px"
+      fill
+    />
   )
 }
 
