@@ -6,8 +6,6 @@ import type { Database } from "@/utils/database.types"
 import { css } from "@styled-system/css"
 import { grid, stack } from "@styled-system/patterns"
 import Image from "next/image"
-import { select } from "@styled-system/recipes"
-import { Select } from "./Select"
 
 const selected_list = [
   "서울특별시",
@@ -38,7 +36,6 @@ export default function FilterList({
   initialData: Database["public"]["Tables"]["mp"]["Row"][]
 }) {
   const [selectedData, setSelectedData] = useState<SelectOption | null>(null)
-  console.log(select)
   const filteredList = initialData.filter(data => data.filter === selectedData)
 
   return (
@@ -57,17 +54,25 @@ export default function FilterList({
         총 인원: {initialData.length}명 / 현재 표시: {filteredList.length}명
       </p>
 
-      <Select<SelectOption>
+      <select
         value={selectedData || ""}
-        onValueChange={e => setSelectedData(e)}
-        options={[...selected_list]} //해당 변수의 readonly 속성으로 인해 배열 복사
-      />
+        onChange={e => setSelectedData(e.target.value as SelectOption)}>
+        <option
+          key="default"
+          value=""
+          disabled>
+          지역 선택
+        </option>
+        {selected_list.map(data => (
+          <option
+            key={data}
+            value={data}>
+            {data}
+          </option>
+        ))}
+      </select>
 
-      <div
-        className={grid({
-          columns: { base: 2, md: 4, lg: 6 },
-          gap: "1rem",
-        })}>
+      <div className={grid({ columns: [3, 4, 5], gap: [4, 6] })}>
         {filteredList.map((politician, index) => (
           <div
             key={index}
