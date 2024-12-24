@@ -6,7 +6,7 @@ import type { Database } from "@/utils/database.types"
 import { css } from "@styled-system/css"
 import { grid, stack } from "@styled-system/patterns"
 import Image from "next/image"
-import { Select } from "../components/Select"
+import { Select } from "../../components/Select"
 
 const selected_list = [
   "서울특별시",

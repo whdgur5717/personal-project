@@ -1,4 +1,4 @@
-import FilterList from "@/components/FilterList"
+import FilterList from "@/app/search/FilterList"
 import { createClient } from "@/utils/server"
 
 export default async function SearchPage() {
