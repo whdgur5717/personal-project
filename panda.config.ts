@@ -1,11 +1,10 @@
 import { defineConfig } from "@pandacss/dev"
-import { preset } from "@jongh/panda-preset"
-import { select } from "@/components/Select/recipe"
+import { defaultPreset } from "./preset"
 
 export default defineConfig({
   // Whether to use css reset
   preflight: true,
-  presets: ["@pandacss/preset-panda", preset()],
+  presets: ["@pandacss/preset-panda", defaultPreset],
   // Where to look for your css declarations
   include: ["./src/components/*.{js,jsx,ts,tsx}", "./src/app/**/*.{js,jsx,ts,tsx}"],
   jsxFramework: "react",
@@ -17,9 +16,6 @@ export default defineConfig({
         fonts: {
           "pretendard-gov": { value: "var(--font-pretendard)" },
         },
-      },
-      recipes: {
-        select,
       },
     },
   },
