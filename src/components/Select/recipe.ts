@@ -1,219 +1,158 @@
-import { defineSlotRecipe } from "@pandacss/dev"
+import { defineSafe } from "@/utils/defineSafe"
 
-export const select = defineSlotRecipe({
+export const selectRecipe = defineSafe.slotRecipe({
   className: "select",
+  description: "Styles for the Select component",
   slots: [
     "root",
-    "content",
-    "control",
-    "label",
+    "group",
+    "value",
     "trigger",
-    "indicator",
+    "viewport",
+    "content",
+    "label",
     "item",
-    "itemGroup",
-    "itemGroupLabel",
-    "itemText",
     "itemIndicator",
-    "clearTrigger",
-    "list",
-    "positioner",
-    "valueText",
+    "separator",
   ],
   base: {
-    root: {
+    trigger: {
       display: "flex",
-      flexDirection: "column",
-      gap: "1.5",
-      width: "full",
-      backgroundColor: "background",
+      h: "10",
+      w: "full",
+      alignItems: "center",
+      justifyContent: "space-between",
+      rounded: "md",
+      border: "input",
+      bg: "transparent",
+      px: "3",
+      py: "2",
+      textStyle: "sm",
+      cursor: "pointer",
+      ringColor: "background",
+
+      _placeholder: {
+        color: "muted.foreground",
+      },
+
+      _focus: {
+        ringWidth: "1",
+        ringColor: "ring",
+        outlineOffset: "2",
+      },
+
+      _disabled: {
+        cursor: "not-allowed",
+        opacity: "0.5",
+      },
+    },
+    viewport: {
+      "&[data-position=popper]": {
+        h: "var(--radix-select-trigger-height)",
+        w: "full",
+        minW: "var(--radix-select-trigger-width)",
+      },
     },
     content: {
-      background: "background",
-      borderRadius: "5px",
-      boxShadow: "lg",
-      display: "flex",
-      flexDirection: "column",
-      zIndex: "dropdown",
-    },
-    control: {
-      width: "full",
-    },
-    item: {
-      alignItems: "center",
-      borderRadius: "5px",
-      cursor: "pointer",
-      display: "flex",
-      justifyContent: "space-between",
+      position: "relative",
+      zIndex: 50,
+      minW: "full",
+      overflow: "hidden",
+      rounded: "md",
+      border: "base",
+      bg: "popover",
+      color: "popover.foreground",
+      shadow: "md",
 
-      _hover: {
-        color: "red",
-      },
-      _highlighted: {
-        background: "gray.a3",
-        color: "black",
-      },
-      _selected: {
-        color: "black",
-      },
-      _disabled: {
-        color: "fg.disabled",
-        cursor: "not-allowed",
-        _hover: {
-          background: "transparent",
-          color: "fg.disabled",
+      // "&[data-state=open]": {
+      //   animateIn: true,
+      //   fadeIn: 0,
+      //   zoomIn: 95,
+      // },
+
+      // "&[data-state=closed]": {
+      //   animateOut: true,
+      //   fadeOut: 0,
+      //   zoomOut: 95,
+      // },
+
+      // "&[data-side=top]": {
+      //   slideInFromBottom: "2",
+      // },
+
+      // "&[data-side=bottom]": {
+      //   slideInFromTop: "2",
+      // },
+
+      // "&[data-side=left]": {
+      //   slideInFromRight: "2",
+      // },
+
+      // "&[data-side=right]": {
+      //   slideInFromLeft: "2",
+      // },
+
+      "&[data-position=popper]": {
+        "&[data-side=top]": {
+          translateY: "-1",
+        },
+
+        "&[data-side=bottom]": {
+          translateY: "1",
+        },
+
+        "&[data-side=left]": {
+          translateX: "-1",
+        },
+
+        "&[data-side=right]": {
+          translateX: "1",
         },
       },
-    },
-    itemGroup: {
-      width: "full",
-      border: "1px solid black",
-    },
-    itemGroupLabel: {
-      fontSize: "1.5rem",
-    },
-    itemIndicator: {
-      color: "black",
     },
     label: {
-      color: "black",
-      fontSize: "2rem",
-      fontWeight: "medium",
+      py: "1.5",
+      pl: "8",
+      pr: "2",
+      textStyle: "sm",
+      fontWeight: "semibold",
     },
-    trigger: {
-      appearance: "none",
-      alignItems: "center",
-      borderColor: "border.default",
-      borderRadius: "l2",
-      cursor: "pointer",
-      color: "black",
-      display: "inline-flex",
-      justifyContent: "space-between",
-      outline: 0,
+    item: {
       position: "relative",
-      transitionDuration: "normal",
-      transitionProperty: "background, box-shadow, border-color",
-      transitionTimingFunction: "default",
-      width: "full",
-      _placeholderShown: {
-        color: "primary",
+      display: "flex",
+      cursor: "default",
+      userSelect: "none",
+      alignItems: "center",
+      rounded: "sm",
+      py: "1.5",
+      pl: "8",
+      pr: "2",
+      textStyle: "sm",
+
+      _focus: {
+        bg: "accent",
+        color: "accent.foreground",
       },
-      _disabled: {
-        color: "fg.disabled",
-        cursor: "not-allowed",
-        "& :where(svg)": {
-          color: "fg.disabled",
-        },
-      },
-      "& :where(svg)": {
-        color: "primary",
-      },
-    },
-  },
-  defaultVariants: {
-    size: "md",
-    variant: "outline",
-  },
-  variants: {
-    variant: {
-      outline: {
-        trigger: {
-          borderWidth: "1px",
-          _focus: {
-            borderColor: "black",
-            boxShadow: "0 0 0 1px var(--colors-color-palette-default)",
-          },
-        },
-      },
-      ghost: {
-        trigger: {
-          _hover: {
-            background: "gray.a3",
-          },
-          _focus: {
-            background: "gray.a3",
-          },
-        },
+
+      ["&[data-disabled]"]: {
+        pointerEvents: "none",
+        opacity: "0.5",
       },
     },
-    size: {
-      sm: {
-        content: { p: "0.5", gap: "1" },
-        item: { textStyle: "sm", px: "2", height: "9" },
-        itemIndicator: {
-          "& :where(svg)": {
-            width: "4",
-            height: "4",
-          },
-        },
-        itemGroupLabel: {
-          px: "2",
-          py: "1.5",
-        },
-        label: { textStyle: "sm" },
-        trigger: {
-          px: "2.5",
-          h: "9",
-          minW: "9",
-          fontSize: "sm",
-          gap: "2",
-          "& :where(svg)": {
-            width: "4",
-            height: "4",
-          },
-        },
-      },
-      md: {
-        content: { p: "1", gap: "1" },
-        item: { textStyle: "md", px: "2", height: "10" },
-        itemIndicator: {
-          "& :where(svg)": {
-            width: "4",
-            height: "4",
-          },
-        },
-        itemGroupLabel: {
-          px: "2",
-          py: "1.5",
-        },
-        label: { textStyle: "sm" },
-        trigger: {
-          px: "3",
-          h: "10",
-          minW: "10",
-          fontSize: "md",
-          gap: "2",
-          "& :where(svg)": {
-            width: "4",
-            height: "4",
-          },
-        },
-      },
-      lg: {
-        content: { p: "1.5", gap: "1" },
-        item: { textStyle: "md", px: "2", height: "11" },
-        itemIndicator: {
-          "& :where(svg)": {
-            width: "5",
-            height: "5",
-          },
-        },
-        itemGroupLabel: {
-          px: "2",
-          py: "1.5",
-        },
-        label: { textStyle: "sm" },
-        trigger: {
-          px: "3.5",
-          h: "11",
-          minW: "11",
-          fontSize: "md",
-          gap: "2",
-          "& :where(svg)": {
-            width: "5",
-            height: "5",
-          },
-        },
-      },
+    itemIndicator: {
+      position: "absolute",
+      left: "2",
+      display: "flex",
+      h: "3.5",
+      w: "3.5",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    separator: {
+      mx: "-1",
+      my: "1",
+      h: "1",
+      bg: "muted",
     },
   },
 })

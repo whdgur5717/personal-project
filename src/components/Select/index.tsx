@@ -1,61 +1,114 @@
-import { Portal } from "@ark-ui/react/portal"
-import { createListCollection, Select as SelectPrimitive } from "@ark-ui/react/select"
+"use client"
 
-import { ChevronDownIcon } from "lucide-react"
-import { select } from "@styled-system/recipes/select"
-export const Select = <T extends string>({
-  options,
-  label,
-  placeholder,
-  onValueChange,
-}: {
-  options: T[]
-  label: string
-  placeholder: string
-  onValueChange: (value: T) => void
-}) => {
-  const collection = { items: options.map(option => ({ value: option, label: option })) }
+import * as React from "react"
+import * as SelectPrimitive from "@radix-ui/react-select"
+import { createStyleContext } from "@/utils/createStyleContext"
+import { type HTMLStyledProps } from "@styled-system/jsx"
+import { select } from "@styled-system/recipes"
+import type { Assign, ComponentProps } from "@styled-system/types"
 
-  const styles = select({ size: "lg" })
+const { withProvider, withContext } = createStyleContext(select)
 
-  return (
-    <SelectPrimitive.Root
-      positioning={{ sameWidth: true }}
-      collection={createListCollection(collection)}
-      onValueChange={e => onValueChange(e.value[0] as T)}
-      className={styles.root}>
-      <SelectPrimitive.Label className={styles.label}>{label}</SelectPrimitive.Label>
-      <SelectPrimitive.Control className={styles.control}>
-        <SelectPrimitive.Trigger className={styles.trigger}>
-          <SelectPrimitive.ValueText
-            placeholder={placeholder}
-            className={styles.valueText}
-          />
-          <SelectPrimitive.Indicator className={styles.indicator}>
-            <ChevronDownIcon />
-          </SelectPrimitive.Indicator>
-        </SelectPrimitive.Trigger>
-      </SelectPrimitive.Control>
-      <Portal>
-        <SelectPrimitive.Positioner>
-          <SelectPrimitive.Content className={styles.content}>
-            <SelectPrimitive.ItemGroup className={styles.itemGroup}>
-              {collection.items.map(item => (
-                <SelectPrimitive.Item
-                  key={item.value}
-                  item={item}
-                  className={styles.item}>
-                  <SelectPrimitive.ItemText className={styles.itemText}>
-                    {item.label}
-                  </SelectPrimitive.ItemText>
-                  <SelectPrimitive.ItemIndicator>✓</SelectPrimitive.ItemIndicator>
-                </SelectPrimitive.Item>
-              ))}
-            </SelectPrimitive.ItemGroup>
-          </SelectPrimitive.Content>
-        </SelectPrimitive.Positioner>
-      </Portal>
-      <SelectPrimitive.HiddenSelect />
-    </SelectPrimitive.Root>
-  )
-}
+const Trigger = React.forwardRef<
+  React.ElementRef<typeof SelectPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
+>(({ children, ...props }, ref) => (
+  <SelectPrimitive.Trigger
+    ref={ref}
+    {...props}>
+    {children}
+    <SelectPrimitive.Icon asChild></SelectPrimitive.Icon>
+  </SelectPrimitive.Trigger>
+))
+Trigger.displayName = SelectPrimitive.Trigger.displayName
+
+const Content = React.forwardRef<
+  React.ElementRef<typeof SelectPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
+>(({ children, position = "popper", ...props }, ref) => (
+  <SelectPrimitive.Portal>
+    <SelectPrimitive.Content
+      ref={ref}
+      position={position}
+      data-position={position}
+      {...props}>
+      {children}
+    </SelectPrimitive.Content>
+  </SelectPrimitive.Portal>
+))
+Content.displayName = SelectPrimitive.Content.displayName
+
+const ItemIndicator = withContext(SelectPrimitive.ItemIndicator, "itemIndicator")
+
+const Item = React.forwardRef<
+  React.ElementRef<typeof SelectPrimitive.Item>,
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
+>(({ children, ...props }, ref) => (
+  <SelectPrimitive.Item
+    ref={ref}
+    {...props}>
+    <ItemIndicator></ItemIndicator>
+
+    <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+  </SelectPrimitive.Item>
+))
+Item.displayName = SelectPrimitive.Item.displayName
+
+export type RootProps = React.ComponentProps<typeof SelectPrimitive.Root>
+export const SelectRoot = withProvider<HTMLDivElement, Assign<HTMLStyledProps<"div">, RootProps>>(
+  SelectPrimitive.Root,
+  "root"
+)
+
+export const SelectGroup = withContext<
+  HTMLDivElement,
+  Assign<HTMLStyledProps<"div">, ComponentProps<typeof SelectPrimitive.Group>>
+>(SelectPrimitive.Group, "group")
+
+export const SelectValue = withContext<
+  HTMLSpanElement,
+  Assign<HTMLStyledProps<"span">, ComponentProps<typeof SelectPrimitive.Value>>
+>(SelectPrimitive.Value, "value")
+
+export const SelectTrigger = withContext<
+  HTMLButtonElement,
+  Assign<HTMLStyledProps<"button">, ComponentProps<typeof Trigger>>
+>(Trigger, "trigger")
+
+export const SelectContent = withContext<
+  HTMLDivElement,
+  Assign<HTMLStyledProps<"div">, ComponentProps<typeof Content>>
+>(Content, "content")
+
+const SelectViewport = withContext<
+  HTMLDivElement,
+  Assign<HTMLStyledProps<"div">, ComponentProps<typeof SelectPrimitive.Viewport>>
+>(SelectPrimitive.Viewport, "viewport")
+
+export const SelectLabel = withContext<
+  HTMLDivElement,
+  Assign<HTMLStyledProps<"div">, ComponentProps<typeof SelectPrimitive.Label>>
+>(SelectPrimitive.Label, "label")
+
+export const SelectItem = withContext<
+  HTMLDivElement,
+  Assign<HTMLStyledProps<"div">, ComponentProps<typeof Item>>
+>(Item, "item")
+
+export const SelectSeparator = withContext<
+  HTMLDivElement,
+  Assign<HTMLStyledProps<"div">, ComponentProps<typeof SelectPrimitive.Separator>>
+>(SelectPrimitive.Separator, "separator")
+
+const Select = Object.assign(SelectRoot, {
+  Group: SelectGroup,
+  Value: SelectValue,
+  Trigger: SelectTrigger,
+  Content: SelectContent,
+  Label: SelectLabel,
+  Item: SelectItem,
+  Separator: SelectSeparator,
+  ViewPort: SelectViewport,
+})
+
+export default Select

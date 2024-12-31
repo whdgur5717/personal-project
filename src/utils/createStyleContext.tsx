@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-/* eslint-disable react/display-name */
 import {
   type ElementType,
   type ForwardRefExoticComponent,
@@ -39,6 +38,7 @@ export const createStyleContext = <R extends Recipe>(recipe: R) => {
     }
     return StyledComponent
   }
+
   const withProvider = <T, P extends { className?: string | undefined }>(
     Component: ElementType,
     slot: Slot<R>,
@@ -65,8 +65,9 @@ export const createStyleContext = <R extends Recipe>(recipe: R) => {
         </StyleContext.Provider>
       )
     })
+    StyledSlotProvider.displayName =
+      (Component as React.ComponentType).displayName || (Component as React.ComponentType).name
 
-    // StyledSlotProvider.displayName = Component.displayName || Component.name
     return StyledSlotProvider
   }
 
@@ -79,14 +80,15 @@ export const createStyleContext = <R extends Recipe>(recipe: R) => {
       const slotStyles = useContext(StyleContext)
       return (
         <StyledComponent
-          className={cx(slotStyles?.[slot], props.className)}
           {...props}
           ref={ref}
+          className={cx(slotStyles?.[slot], props.className)}
         />
       )
     })
+    StyledSlotComponent.displayName =
+      (Component as React.ComponentType).displayName || (Component as React.ComponentType).name
 
-    // StyledSlotComponent.displayName = Component.displayName || Component.name
     return StyledSlotComponent
   }
 

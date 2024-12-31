@@ -9,63 +9,131 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      mp: {
+      attendance: {
         Row: {
-          comment: string | null
-          district: string
-          filter: string | null
-          id: string
-          isAgreed: boolean
-          name: string
-          signed_url: string
+          absence: number
+          absence_request: number
+          attend: number
+          attendance_id: string
+          permission: number
+          session_id: string
+          session_number: number
+          trip: number
+          user_id: string | null
         }
         Insert: {
-          comment?: string | null
-          district: string
-          filter?: string | null
-          id?: string
-          isAgreed?: boolean
-          name?: string
-          signed_url: string
+          absence?: number
+          absence_request?: number
+          attend?: number
+          attendance_id?: string
+          permission: number
+          session_id: string
+          session_number?: number
+          trip?: number
+          user_id?: string | null
         }
         Update: {
-          comment?: string | null
+          absence?: number
+          absence_request?: number
+          attend?: number
+          attendance_id?: string
+          permission?: number
+          session_id?: string
+          session_number?: number
+          trip?: number
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendance_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "sessions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "attendance_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "member"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      member: {
+        Row: {
+          committee: string
+          district: string
+          id: string
+          name: string
+          note: string | null
+          party: string
+          url: string | null
+        }
+        Insert: {
+          committee?: string
           district?: string
-          filter?: string | null
           id?: string
-          isAgreed?: boolean
           name?: string
-          signed_url?: string
+          note?: string | null
+          party?: string
+          url?: string | null
+        }
+        Update: {
+          committee?: string
+          district?: string
+          id?: string
+          name?: string
+          note?: string | null
+          party?: string
+          url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "member_party_fkey"
+            columns: ["party"]
+            isOneToOne: false
+            referencedRelation: "party"
+            referencedColumns: ["name"]
+          },
+        ]
+      }
+      party: {
+        Row: {
+          brand_color: string
+          id: string
+          name: string
+        }
+        Insert: {
+          brand_color?: string
+          id?: string
+          name?: string
+        }
+        Update: {
+          brand_color?: string
+          id?: string
+          name?: string
         }
         Relationships: []
       }
-      mp_duplicate: {
+      sessions: {
         Row: {
-          comment: string | null
-          district: string
-          filter: string | null
           id: string
-          isAgreed: boolean
-          name: string
-          signed_url: string
+          session_name: number
+          total: number
+          type: string
         }
         Insert: {
-          comment?: string | null
-          district: string
-          filter?: string | null
           id?: string
-          isAgreed?: boolean
-          name?: string
-          signed_url: string
+          session_name: number
+          total?: number
+          type?: string
         }
         Update: {
-          comment?: string | null
-          district?: string
-          filter?: string | null
           id?: string
-          isAgreed?: boolean
-          name?: string
-          signed_url?: string
+          session_name?: number
+          total?: number
+          type?: string
         }
         Relationships: []
       }

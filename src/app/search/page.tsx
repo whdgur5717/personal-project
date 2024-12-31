@@ -1,13 +1,12 @@
-import FilterList from "@/app/search/FilterList"
-import { createClient } from "@/utils/server"
+// import { createClient } from "@/utils/server"
 
 export default async function SearchPage() {
-  const supabase = await createClient()
-  const { data: politicians, error } = await supabase.from("mp").select("*")
+  // const supabase = await createClient()
+  // const { data: politicians, error } = await supabase.from("member").select("*")
 
-  if (politicians == null && error) {
-    throw new Error("Failed to fetch politicians")
-  }
+  // if (politicians == null && error) {
+  //   throw new Error("Failed to fetch politicians")
+  // }
 
-  return <FilterList initialData={politicians} />
+  return <div>준비중입니다</div>
 }
